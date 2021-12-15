@@ -5,15 +5,19 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from "./Pages/Home/Home/Home";
+import Login from "./Pages/Login/Login/Login";
+import Registration from "./Pages/Login/Registration/Registration";
 import Footer from "./Pages/Shared/Footer/Footer";
-import Navigation from "./Pages/Shared/Navigation/Navigation";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
+
+
         {/* <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="teams" element={<Teams />}>
@@ -24,7 +28,6 @@ function App() {
         </Route> */}
       </Routes>
 
-      <Footer />
     </BrowserRouter>
   );
 }
