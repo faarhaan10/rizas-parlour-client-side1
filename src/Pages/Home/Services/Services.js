@@ -6,7 +6,8 @@ const Services = () => {
     return (
         <Container>
             <Box sx={{ textAlign: 'center', my: 3 }}>
-                <Typography variant="h4" gutterBottom component="div"
+                <Typography variant="h2" component="div"
+                    sx={{ fontFamily: 'Tangerine' }}
                 >
                     Services
                 </Typography>

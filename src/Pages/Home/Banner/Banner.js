@@ -17,12 +17,11 @@ const Banner = () => {
         >
             <Box sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center', height: '100%' }}>
                 <Box style={{ textAlign: 'center' }}>
-                    <Typography variant="h4" gutterBottom component="div"
-
+                    <Typography variant="h2" component="div"
+                        sx={{ fontFamily: 'Tangerine' }}
                     >
                         Exclusive Spa and Salon Services  For You
                     </Typography>
-                    <br />
                     <Button variant="contained" color="warning">
                         Book Appointment
                     </Button>

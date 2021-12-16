@@ -11,7 +11,8 @@ const About = () => {
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <Box sx={{ textAlign: 'center' }}>
-                        <Typography variant="h4" gutterBottom component="div"
+                        <Typography variant="h2" component="div"
+                            sx={{ fontFamily: 'Tangerine' }}
                         >
                             About us
                         </Typography>

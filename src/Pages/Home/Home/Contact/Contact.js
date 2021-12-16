@@ -11,7 +11,8 @@ const Contact = () => {
     return (
         <Container sx={{ mt: 5 }}>
             <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" component="div"
+                <Typography variant="h2" component="div"
+                    sx={{ fontFamily: 'Tangerine' }}
                 >
                     Contact US
                 </Typography>
