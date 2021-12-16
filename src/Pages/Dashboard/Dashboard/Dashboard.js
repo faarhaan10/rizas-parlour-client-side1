@@ -14,7 +14,10 @@ import Typography from '@mui/material/Typography';
 import { Route, Link, Routes } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
 import MyOrders from '../MyOrders/MyOrders';
-import Review from './Review/Review';
+import Review from '../Review/Review';
+import AddService from '../AddService/AddService';
+import ManageServices from '../ManageServices/ManageServices';
+import ManageAppointments from '../ManageAppointments/ManageAppointments';
 
 const drawerWidth = 240;
 
@@ -73,39 +76,39 @@ function Dashboard(props) {
                     </Link>
                 </Box>
                 <Box>
-                    <Link to={'addproducts'} style={{ textDecoration: 'none' }}>
+                    <Link to={'addservice'} style={{ textDecoration: 'none' }}>
                         <ListItem button >
                             <Typography
                                 variant="button" display="block" color="secondary"
                                 sx={{
                                     ml: 5
                                 }}>
-                                add products
+                                add service
                             </Typography>
                         </ListItem>
 
                     </Link>
 
-                    <Link to={'manageproducts'} style={{ textDecoration: 'none' }}>
+                    <Link to={'manageservice'} style={{ textDecoration: 'none' }}>
                         <ListItem button >
                             <Typography
                                 variant="button" display="block" color="secondary"
                                 sx={{
                                     ml: 5
                                 }}>
-                                manage products
+                                manage services
                             </Typography>
                         </ListItem>
                     </Link>
 
-                    <Link to={'orders'} style={{ textDecoration: 'none' }}>
+                    <Link to={'appointments'} style={{ textDecoration: 'none' }}>
                         <ListItem button >
                             <Typography
                                 variant="button" display="block" color="secondary"
                                 sx={{
                                     ml: 5
                                 }}>
-                                manage orders
+                                appointments
                             </Typography>
                         </ListItem>
                     </Link>
@@ -224,6 +227,9 @@ function Dashboard(props) {
                 <Routes>
                     <Route path="myorders" element={<MyOrders />} />
                     <Route path="review" element={<Review />} />
+                    <Route path="addservice" element={<AddService />} />
+                    <Route path="manageservice" element={<ManageServices />} />
+                    <Route path="appointments" element={<ManageAppointments />} />
                 </Routes>
             </Box>
         </Box>

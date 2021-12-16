@@ -9,8 +9,6 @@ import Login from "./Pages/Login/Login/Login";
 import Registration from "./Pages/Login/Registration/Registration";
 import NotFound from "./Pages/NotFound/NotFound";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
-import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
-import Review from "./Pages/Dashboard/Dashboard/Review/Review";
 
 function App() {
   return (
