@@ -38,7 +38,7 @@ const Navigation = () => {
     };
 
     return (
-        <AppBar position="fixed" >
+        <AppBar position="fixed" sx={{ backgroundColor: '#ed6c02' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography

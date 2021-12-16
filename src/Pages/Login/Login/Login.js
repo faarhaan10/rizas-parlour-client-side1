@@ -9,7 +9,6 @@ const Login = () => {
     const { handleGoogleLogin, handleUserLogin } = useFirebase();
 
     const { register, handleSubmit } = useForm();
-
     const onSubmit = data => {
         handleUserLogin(data.email, data.password);
     };

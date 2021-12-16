@@ -5,11 +5,13 @@ import { Button, Typography } from '@mui/material';
 
 const Banner = () => {
     return (
-        <Box sx={{ flexGrow: 1 }}
+        <Box sx={{
+            flexGrow: 1, p: 5, backgroundImage: { xs: 'url(https://i.ibb.co/cJV02f2/image.png)', md: 'url(https://i.ibb.co/C2nWz1m/image.png)' },
+            backgroundSize: 'cover',
+            height: 450
+        }}
             style={{
-                backgroundImage: 'url(https://image1.jdomni.in/banner/19102021/77/0B/2D/C11C3702DE43A8BC8FD6A3F8DA_1634652457498.png)',
-                backgroundSize: 'cover',
-                height: 450
+
 
             }}
         >
