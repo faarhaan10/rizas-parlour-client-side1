@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import SimpleSlider from '../SimpleSlider/SimpleSlider';
 
 const Testimonials = () => {
     return (
@@ -11,7 +12,7 @@ const Testimonials = () => {
                     Testimonials
                 </Typography>
             </Box>
-
+            <SimpleSlider />
         </Container>
     );
 };
