@@ -1,12 +1,16 @@
 import React from 'react';
-import { Button, Chip, Container, Divider, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, Chip, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
+import useFirebase from '../../../hooks/useFirebase';
 
 const Registration = () => {
+    const { handleCreateUser, error, handleGoogleLogin } = useFirebase();
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        handleCreateUser(data.name, data.email, data.password)
+    };
 
 
     return (
@@ -63,7 +67,8 @@ const Registration = () => {
                         <Divider>
                             <Chip label="OR " />
                         </Divider>
-                        <Button fullWidth variant="contained" color="warning">
+                        <Button fullWidth variant="contained" color="warning"
+                            onClick={handleGoogleLogin}>
                             Sign in with google
                         </Button>
                         <Link to="/login">
@@ -73,6 +78,7 @@ const Registration = () => {
                         </Link>
                     </Grid>
                 </Grid>
+                {error && <Alert severity="error">{error}</Alert>}
             </Container>
 
         </Box>

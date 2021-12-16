@@ -11,14 +11,17 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import useFirebase from '../../../hooks/useFirebase';
+import { Link } from 'react-router-dom';
 
 const pages = ['Home', 'Book Appointment', 'Services', 'About Us', 'gallery', 'testimonials'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    const { user, handleLogOut } = useFirebase();
+    console.log(user)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -35,7 +38,7 @@ const Navigation = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -103,10 +106,13 @@ const Navigation = () => {
                         ))}
                     </Box>
 
+                    {/* avatar part  */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Farhan elias" src="/static/images/avatar/2.jpg" />
+                                {user.photoURL ? <Avatar alt={user.displayName} src={user.photoURL} />
+                                    :
+                                    <Avatar alt={user.displayName} src='ad/asd' />}
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -125,11 +131,21 @@ const Navigation = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+
+                            {/* 'Profile', 'Account', 'Dashboard', '' */}
+                            {user.email ? <MenuItem onClick={handleLogOut}>
+                                <Typography textAlign="center">
+                                    Logout
+                                </Typography>
+                            </MenuItem>
+                                :
+                                <Link to='/login'>
+                                    <MenuItem>
+                                        <Typography textAlign="center">
+                                            Login
+                                        </Typography>
+                                    </MenuItem>
+                                </Link>}
                         </Menu>
                     </Box>
                 </Toolbar>

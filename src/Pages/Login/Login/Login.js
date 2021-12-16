@@ -6,10 +6,14 @@ import { Link } from 'react-router-dom';
 import useFirebase from '../../../hooks/useFirebase';
 
 const Login = () => {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const { handleGoogleLogin, handleUserLogin } = useFirebase();
 
-    const farhan = useFirebase();
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = data => {
+        handleUserLogin(data.email, data.password);
+    };
+
 
     return (
         <Box sx={{ height: { xs: 'auto', md: '100vh' }, display: 'flex', alignItems: 'center', backgroundColor: '#ddd' }}>
@@ -58,7 +62,7 @@ const Login = () => {
                         <Divider>
                             <Chip label="OR " />
                         </Divider>
-                        <Button fullWidth variant="contained" color="warning">
+                        <Button onClick={handleGoogleLogin} fullWidth variant="contained" color="warning">
                             Sign in with google
                         </Button>
                         <Link to="/registration">
