@@ -13,8 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import useFirebase from '../../../hooks/useFirebase';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
-const pages = ['Home', 'Book Appointment', 'Services', 'About Us', 'gallery', 'testimonials'];
 
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -79,11 +79,44 @@ const Navigation = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    Home
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    Book Appoinment
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <HashLink to='/home#services'>
+                                    <Typography textAlign="center">
+                                        Services
+                                    </Typography>
+                                </HashLink>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    About us
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    Gallery
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    Testimonials
+                                </Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <Typography
@@ -95,15 +128,83 @@ const Navigation = () => {
                         RIZA's Parlour
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        <Link
+                            to='/home'
+                            style={{ textDecoration: 'none' }}>
                             <Button
-                                key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                Home
                             </Button>
-                        ))}
+                        </Link>
+                        <Link
+                            to='/book'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                book appointment
+                            </Button>
+                        </Link>
+
+                        <HashLink
+                            to='/home#services'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                services
+                            </Button>
+                        </HashLink>
+                        <HashLink
+                            to='/home#about'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                about us
+                            </Button>
+                        </HashLink>
+                        <HashLink
+                            to='/home#gallery'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                gallery
+                            </Button>
+                        </HashLink>
+                        <HashLink
+                            to='/home#testimonials'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                testimonials
+                            </Button>
+                        </HashLink>
+                        <HashLink
+                            to='/home#contact'
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                contact us
+                            </Button>
+                        </HashLink>
                     </Box>
 
                     {/* avatar part  */}

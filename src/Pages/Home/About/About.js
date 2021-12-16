@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 const About = () => {
     return (
-        <Container sx={{ my: 5 }}>
+        <Container id='about' sx={{ mt: 5, pt: 8 }}>
             <Grid container columns={{ xs: 6, md: 6 }} sx={{ alignItems: 'center' }}>
                 <Grid item xs={6} md={3}>
                     <img style={{ width: '100%' }} src="https://image3.jdomni.in/banner/19102021/B3/63/BA/A253E63A4C61C13B4A9D3BB7B3_1634657593387.jpg" alt="" />

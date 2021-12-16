@@ -5,7 +5,7 @@ import SimpleSlider from '../SimpleSlider/SimpleSlider';
 
 const Testimonials = () => {
     return (
-        <Container sx={{ my: 5 }}>
+        <Container id='testimonials' sx={{ mt: 5, pt: 8 }}>
             <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="h2" component="div"
                     sx={{ fontFamily: 'Tangerine' }}

@@ -9,7 +9,7 @@ const Contact = () => {
         console.log(data);
     };
     return (
-        <Container sx={{ mt: 5 }}>
+        <Container id='contact' sx={{ mt: 5, pt: 8 }}>
             <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="h2" component="div"
                     sx={{ fontFamily: 'Tangerine' }}

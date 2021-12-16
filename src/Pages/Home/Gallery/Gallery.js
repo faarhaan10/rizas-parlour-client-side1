@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 const Gallery = () => {
     return (
-        <Container sx={{ my: 5 }}>
+        <Container id='gallery' sx={{ mt: 5, pt: 8 }}>
             <Box sx={{ textAlign: 'center' }}>
                 <Typography variant="h2" component="div"
                     sx={{ fontFamily: 'Tangerine' }}

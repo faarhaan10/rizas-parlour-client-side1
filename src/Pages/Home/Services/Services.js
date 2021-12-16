@@ -4,7 +4,7 @@ import Service from '../Service/Service';
 
 const Services = () => {
     return (
-        <Container>
+        <Container id='services' sx={{ mt: 5, pt: 8 }}>
             <Box sx={{ textAlign: 'center', my: 3 }}>
                 <Typography variant="h2" component="div"
                     sx={{ fontFamily: 'Tangerine' }}
