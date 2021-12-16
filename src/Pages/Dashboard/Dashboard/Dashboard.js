@@ -18,6 +18,8 @@ import Review from '../Review/Review';
 import AddService from '../AddService/AddService';
 import ManageServices from '../ManageServices/ManageServices';
 import ManageAppointments from '../ManageAppointments/ManageAppointments';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import Payment from '../Payment/Payment';
 
 const drawerWidth = 240;
 
@@ -33,7 +35,7 @@ function Dashboard(props) {
 
     const drawer = (
         <div>
-            <Toolbar sx={{ backgroundColor: '#ed6c02' }} />
+            <Toolbar sx={{ backgroundColor: '#ed6c02' }} style={{ boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)', borderRight: '1px solid orange' }} />
             <Divider />
 
             <List>
@@ -225,11 +227,13 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, px: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Routes>
+                    <Route path="payment" element={<Payment />} />
                     <Route path="myorders" element={<MyOrders />} />
                     <Route path="review" element={<Review />} />
                     <Route path="addservice" element={<AddService />} />
                     <Route path="manageservice" element={<ManageServices />} />
                     <Route path="appointments" element={<ManageAppointments />} />
+                    <Route path="makeadmin" element={<MakeAdmin />} />
                 </Routes>
             </Box>
         </Box>

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Rating, Typography } from '@mui/material';
 import React from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
@@ -10,9 +10,7 @@ const SimpleSlider = () => {
         <div className="slide-container">
             <Slide>{Array.from(Array(6)).map((_, index) => (
                 <div className="each-slide" key={index}>
-                    {/* <div style={{ 'backgroundImage': `url(${slideImage.url})` }}>
-                            <span>{slideImage.caption}</span>
-                        </div> */}
+
                     <Box sx={{ textAlign: 'center' }}>
                         <Grid container spacing={2} sx={{ alignItems: 'center' }}>
                             <Grid item xs={3}>
@@ -27,6 +25,7 @@ const SimpleSlider = () => {
                                 <img style={{ width: 50 }} src="https://image1.jdomni.in/banner/19102021/5B/D6/93/1553F840E787C5D56772D5CC48_1634654069665.png" alt="" />
                             </Grid>
                         </Grid>
+                        <Rating name="read-only" value='4' readOnly />
                         <Typography variant="h6" gutterBottom component="div"
                         >
                             About us

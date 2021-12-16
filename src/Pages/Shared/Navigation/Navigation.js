@@ -45,7 +45,11 @@ const Navigation = () => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' }
+
+                        }}
                     >
                         Riza's Parlour
                     </Typography>
@@ -126,12 +130,16 @@ const Navigation = () => {
                         </Menu>
                     </Box>
                     <Typography
-                        variant="h6"
+                        variant="h4"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{
+                            flexGrow: 1, display: { xs: 'flex', md: 'none' },
+                            fontFamily: 'Tangerine',
+                            fontWeight: 800
+                        }}
                     >
-                        RIZA's Parlour
+                        Riza's Parlour
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Link
