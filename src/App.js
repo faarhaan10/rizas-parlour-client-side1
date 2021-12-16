@@ -8,7 +8,9 @@ import Home from "./Pages/Home/Home/Home";
 import Login from "./Pages/Login/Login/Login";
 import Registration from "./Pages/Login/Registration/Registration";
 import NotFound from "./Pages/NotFound/NotFound";
-import Footer from "./Pages/Shared/Footer/Footer";
+import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
+import MyOrders from "./Pages/Dashboard/MyOrders/MyOrders";
+import Review from "./Pages/Dashboard/Dashboard/Review/Review";
 
 function App() {
   return (
@@ -18,8 +20,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="*" exact element={<NotFound />} />
 
+        <Route path="dashboard/*" element={<Dashboard />} />
 
         {/* <Route path="/" element={<App />}>
           <Route index element={<Home />} />
@@ -29,6 +31,8 @@ function App() {
             <Route index element={<LeagueStandings />} />
           </Route>
         </Route> */}
+
+        <Route path="*" exact element={<NotFound />} />
       </Routes>
 
     </BrowserRouter>
