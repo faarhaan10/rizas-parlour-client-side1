@@ -3,11 +3,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 const SimpleSlider = () => {
     const [reviews, setReviews] = useState([]);
-    const { databaseUrl } = useFirebase();
+    const { databaseUrl } = useAuth();
 
     useEffect(() => {
         axios.get(`${databaseUrl}/reviews`)

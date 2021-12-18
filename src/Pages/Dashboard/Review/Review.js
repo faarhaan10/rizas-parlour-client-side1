@@ -4,10 +4,10 @@ import { Box } from '@mui/system';
 import SaveIcon from '@mui/icons-material/Save';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 const Review = () => {
-    const { user, databaseUrl } = useFirebase();
+    const { user, databaseUrl } = useAuth();
     const { register, handleSubmit, reset } = useForm();
     const { email } = user;
 

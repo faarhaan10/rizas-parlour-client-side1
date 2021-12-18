@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Box, Grid } from '@mui/material';
 import Service from '../Service/Service';
-import useFirebase from '../../../hooks/useFirebase';
 import axios from 'axios';
+import useAuth from '../../../hooks/useAuth';
 
 const Services = () => {
     const [services, setServices] = useState([]);
-    const { databaseUrl } = useFirebase();
+    const { databaseUrl } = useAuth();
 
     useEffect(() => {
         axios.get(`${databaseUrl}/services`)

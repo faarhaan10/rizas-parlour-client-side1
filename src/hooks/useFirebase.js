@@ -8,25 +8,28 @@ firebaseAuthentication();
 const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(true)
     const [admin, setAdmin] = useState(false);
 
     //my database url
-    const databaseUrl = 'http://localhost:5000';
+    const databaseUrl = 'https://rizas-parlour.herokuapp.com';
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
-    const handleCreateUser = (name, email, password) => {
+    const handleCreateUser = (name, email, password, navigate) => {
+        setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const newUser = { email, displayName: name };
                 saveUser(newUser, 'post');
                 handleUpdateUser(name);
+                navigate('/');
             })
             .catch((error) => {
                 setError(error.message);
-            });
+            }).finally(() => setIsLoading(false));
     };
 
     const handleUpdateUser = name => {
@@ -41,19 +44,22 @@ const useFirebase = () => {
         });
     }
 
-    const handleUserLogin = (email, password) => {
+    const handleUserLogin = (email, password, navigate, location) => {
+        setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-
+                const destination = location?.state?.from || '/';
+                navigate(destination);
             })
             .catch((error) => {
                 setError(error.message);
-            });
+            }).finally(() => setIsLoading(false));
     }
 
 
-    const handleGoogleLogin = () => {
+    const handleGoogleLogin = (navigate, location) => {
+        setIsLoading(true);
         signInWithPopup(auth, googleProvider)
             .then(result => {
                 const user = result.user;
@@ -62,14 +68,17 @@ const useFirebase = () => {
                     displayName: user.displayName
                 }
                 saveUser(newUser, 'put');
+                const destination = location?.state?.from || '/';
+                navigate(destination);
             })
             .catch(error => {
                 setError(error.message);
             })
-            .finally()
+            .finally(() => setIsLoading(false));
     };
 
     const handleLogOut = () => {
+        setIsLoading(true);
         signOut(auth).then(() => {
             // Sign-out successful.
             setUser({});
@@ -77,30 +86,33 @@ const useFirebase = () => {
             // An error happened.
             setUser({});
             setError(error.message);
-        });
+        })
+            .finally(() => setIsLoading(false));
     };
 
     // manage user
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
             } else {
                 // User is signed out
                 setUser({});
             }
+            setIsLoading(false);
         });
-    }, [auth]);
+        return () => unsubscribed;
+    }, [auth])
 
 
     //save user to db
     const saveUser = (newUser, method) => {
         if (method === 'put') {
-            axios.put('https://savon-server-sider-api.herokuapp.com/users', newUser)
+            axios.put(`${databaseUrl}/users`, newUser)
                 .then()
         }
         else {
-            axios.post('https://savon-server-sider-api.herokuapp.com/users', newUser)
+            axios.post(`${databaseUrl}/users`, newUser)
                 .then()
         }
 
@@ -121,7 +133,8 @@ const useFirebase = () => {
         handleUserLogin,
         error,
         databaseUrl,
-        admin
+        admin,
+        isLoading
     }
 };
 

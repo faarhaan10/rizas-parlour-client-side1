@@ -2,14 +2,18 @@ import React from 'react';
 import { Alert, Button, Chip, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
-import useFirebase from '../../../hooks/useFirebase';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Registration = () => {
-    const { handleCreateUser, error, handleGoogleLogin } = useFirebase();
+    const { handleCreateUser, error, handleGoogleLogin } = useAuth();
     const { register, handleSubmit } = useForm();
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const onSubmit = data => {
-        handleCreateUser(data.name, data.email, data.password)
+        handleCreateUser(data.name, data.email, data.password, navigate, location);
     };
 
 

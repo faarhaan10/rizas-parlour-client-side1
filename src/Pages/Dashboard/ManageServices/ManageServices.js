@@ -9,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { IconButton, Typography } from '@mui/material';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 
 
@@ -18,7 +18,7 @@ import useFirebase from '../../../hooks/useFirebase';
 
 const ManageServices = () => {
     const [services, setServices] = React.useState([]);
-    const { databaseUrl } = useFirebase();
+    const { databaseUrl } = useAuth();
 
     // load all services 
     React.useEffect(() => {

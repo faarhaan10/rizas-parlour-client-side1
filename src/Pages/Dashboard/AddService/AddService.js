@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -29,7 +29,7 @@ const CssTextField = styled(TextField)({
 });
 
 const AddService = () => {
-    const { databaseUrl } = useFirebase();
+    const { databaseUrl } = useAuth();
     const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = data => {

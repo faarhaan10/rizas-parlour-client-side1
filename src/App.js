@@ -11,6 +11,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
 import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
 import AuthProvider from "./context/AuthProvider/AuthProvider";
+import PrivateRoute from "./Pages/ProtectedRoutes/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -22,18 +23,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
 
-          <Route path="/service/:teamId" element={<PlaceOrder />} />
+          <Route path="/service/:teamId" element={<PrivateRoute>
+            <PlaceOrder />
+          </PrivateRoute>} />
 
-          <Route path="dashboard/*" element={<Dashboard />} />
-
-          {/* <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="teams" element={<Teams />}>
-            <Route path=":teamId" element={<Team />} />
-            <Route path="new" element={<NewTeamForm />} />
-            <Route index element={<LeagueStandings />} />
-          </Route>
-        </Route> */}
+          <Route path="dashboard/*" element={<PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>} />
 
           <Route path="*" exact element={<NotFound />} />
         </Routes>

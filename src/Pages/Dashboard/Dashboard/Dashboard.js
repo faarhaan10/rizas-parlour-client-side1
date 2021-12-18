@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Route, Link, Routes } from "react-router-dom";
+import { Route, Link, Routes, useNavigate } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
 import MyOrders from '../MyOrders/MyOrders';
 import Review from '../Review/Review';
@@ -20,17 +20,27 @@ import ManageServices from '../ManageServices/ManageServices';
 import ManageAppointments from '../ManageAppointments/ManageAppointments';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import Payment from '../Payment/Payment';
+import AdminRoute from '../../ProtectedRoutes/AdminRoute/AdminRoute';
+import useAuth from '../../../hooks/useAuth';
+
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { window } = props;
+    const navigate = useNavigate();
+    const { handleLogOut, admin } = useAuth();
 
-    // const { handleLogOut, admin } = useAuth();
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const handleSignOut = () => {
+        handleLogOut();
+        navigate('/');
+    }
 
 
     const drawer = (
@@ -39,7 +49,7 @@ function Dashboard(props) {
             <Divider />
 
             <List>
-                <Box>
+                {!admin && <Box>
 
                     <Link to={`payment`} style={{ textDecoration: 'none' }}>
                         <ListItem button >
@@ -76,8 +86,8 @@ function Dashboard(props) {
                             </Typography>
                         </ListItem>
                     </Link>
-                </Box>
-                <Box>
+                </Box>}
+                {admin && <Box>
                     <Link to={'addservice'} style={{ textDecoration: 'none' }}>
                         <ListItem button >
                             <Typography
@@ -126,11 +136,11 @@ function Dashboard(props) {
                             </Typography>
                         </ListItem>
                     </Link>
-                </Box>
+                </Box>}
             </List>
             <Divider />
             <List>
-                <ListItem button >
+                <ListItem button onClick={handleSignOut}>
                     <Typography
                         variant="button" display="block" color="secondary"
                         sx={{
@@ -230,11 +240,12 @@ function Dashboard(props) {
                     <Route path="payment" element={<Payment />} />
                     <Route path="myorders" element={<MyOrders />} />
                     <Route path="review" element={<Review />} />
-                    <Route path="addservice" element={<AddService />} />
-                    <Route path="manageservice" element={<ManageServices />} />
-                    <Route path="appointments" element={<ManageAppointments />} />
-                    <Route path="makeadmin" element={<MakeAdmin />} />
+                    <Route path="addservice" element={<AdminRoute><AddService /></AdminRoute>} />
+                    <Route path="manageservice" element={<AdminRoute><ManageServices /></AdminRoute>} />
+                    <Route path="appointments" element={<AdminRoute><ManageAppointments /></AdminRoute>} />
+                    <Route path="makeadmin" element={<AdminRoute><MakeAdmin /></AdminRoute>} />
                 </Routes>
+
             </Box>
         </Box>
     );

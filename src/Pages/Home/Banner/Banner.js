@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import { Button, Typography } from '@mui/material';
+import { HashLink } from 'react-router-hash-link';
 
 
 const Banner = () => {
@@ -22,9 +23,15 @@ const Banner = () => {
                     >
                         Exclusive Spa and Salon Services  For You
                     </Typography>
-                    <Button variant="contained" color="warning">
-                        Book Appointment
-                    </Button>
+
+                    <HashLink
+                        to='/home#services'
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <Button variant="contained" color="warning">
+                            Book Appointment
+                        </Button>
+                    </HashLink>
                 </Box>
             </Box>
         </Box>

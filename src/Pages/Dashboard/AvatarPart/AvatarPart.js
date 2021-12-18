@@ -3,13 +3,13 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom';
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 const AvatarPart = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const { user, handleLogOut } = useFirebase();
+    const { user, handleLogOut } = useAuth();
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);

@@ -2,17 +2,23 @@ import React from 'react';
 import { Button, Chip, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
-import useFirebase from '../../../hooks/useFirebase';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
-    const { handleGoogleLogin, handleUserLogin } = useFirebase();
-
+    const { handleGoogleLogin, handleUserLogin } = useAuth();
     const { register, handleSubmit } = useForm();
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const onSubmit = data => {
-        handleUserLogin(data.email, data.password);
+        handleUserLogin(data.email, data.password, navigate, location);
     };
 
+    const handleLogin = () => {
+        handleGoogleLogin(navigate, location);
+    }
 
     return (
         <Box sx={{ height: { xs: 'auto', md: '100vh' }, display: 'flex', alignItems: 'center', backgroundColor: '#ddd' }}>
@@ -61,7 +67,7 @@ const Login = () => {
                         <Divider>
                             <Chip label="OR " />
                         </Divider>
-                        <Button onClick={handleGoogleLogin} fullWidth variant="contained" color="warning">
+                        <Button onClick={handleLogin} fullWidth variant="contained" color="warning">
                             Sign in with google
                         </Button>
                         <Link to="/registration">

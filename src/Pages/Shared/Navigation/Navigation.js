@@ -11,16 +11,22 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import useFirebase from '../../../hooks/useFirebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import useAuth from '../../../hooks/useAuth';
 
 
 const Navigation = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const { user, handleLogOut } = useFirebase();
+    const { user, handleLogOut } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        handleLogOut();
+        navigate('/');
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -85,13 +91,19 @@ const Navigation = () => {
                         >
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    Home
-                                </Typography>
+                                <Link
+                                    to='/'
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <Typography textAlign="center">
+                                        Home
+                                    </Typography>
+                                </Link>
+
                             </MenuItem>
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <HashLink to='/home#services'>
+                                <HashLink to='/home#services' style={{ textDecoration: 'none' }}>
                                     <Typography textAlign="center">
                                         Services
                                     </Typography>
@@ -99,28 +111,40 @@ const Navigation = () => {
                             </MenuItem>
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    About us
-                                </Typography>
+                                <HashLink to='/home#about' style={{ textDecoration: 'none' }}>
+                                    <Typography textAlign="center">
+                                        About us
+                                    </Typography>
+                                </HashLink>
                             </MenuItem>
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    Gallery
-                                </Typography>
+                                <HashLink to='/home#gallery' style={{ textDecoration: 'none' }}>
+                                    <Typography textAlign="center">
+                                        Gallery
+                                    </Typography>
+                                </HashLink>
                             </MenuItem>
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    Testimonials
-                                </Typography>
+                                <HashLink to='/home#testimonials' style={{ textDecoration: 'none' }}>
+                                    <Typography textAlign="center">
+                                        Testimonials
+                                    </Typography>
+                                </HashLink>
                             </MenuItem>
-                            <MenuItem
+                            {user.email && <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    Dashboard
-                                </Typography>
-                            </MenuItem>
+                                <Link
+                                    to='/dashboard'
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <Typography textAlign="center">
+                                        Dashboard
+                                    </Typography>
+                                </Link>
+
+                            </MenuItem>}
                         </Menu>
                     </Box>
                     <Typography
@@ -202,7 +226,7 @@ const Navigation = () => {
                                 contact us
                             </Button>
                         </HashLink>
-                        <Link
+                        {user.email && <Link
                             to='/dashboard'
                             style={{ textDecoration: 'none' }}
                         >
@@ -212,7 +236,7 @@ const Navigation = () => {
                             >
                                 dashboard
                             </Button>
-                        </Link>
+                        </Link>}
                     </Box>
 
                     {/* avatar part  */}
@@ -241,14 +265,16 @@ const Navigation = () => {
                             onClose={handleCloseUserMenu}
                         >
 
-                            {/* 'Profile', 'Account', 'Dashboard', '' */}
-                            {user.email ? <MenuItem onClick={handleLogOut}>
+                            {user.email ? <MenuItem onClick={handleSignOut}>
                                 <Typography textAlign="center">
                                     Logout
                                 </Typography>
                             </MenuItem>
                                 :
-                                <Link to='/login'>
+                                <Link
+                                    to='/dashboard'
+                                    style={{ textDecoration: 'none' }}
+                                >
                                     <MenuItem>
                                         <Typography textAlign="center">
                                             Login
