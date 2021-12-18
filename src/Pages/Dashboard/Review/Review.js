@@ -7,16 +7,17 @@ import axios from 'axios';
 import useFirebase from '../../../hooks/useFirebase';
 
 const Review = () => {
-    const { user } = useFirebase();
+    const { user, databaseUrl } = useFirebase();
     const { register, handleSubmit, reset } = useForm();
+    const { email } = user;
 
     const onSubmit = data => {
         if (data.rating < 0 || data.rating > 5) {
             alert('Rating must be 0 to 5.');
             return;
         }
-
-        axios.post('https://savon-server-sider-api.herokuapp.com/reviews', data)
+        const newReview = { email, ...data };
+        axios.post(`${databaseUrl}/reviews`, newReview)
             .then(res => {
                 if (res.data.acknowledged) {
                     alert('Review added Succesfully');
@@ -46,14 +47,13 @@ const Review = () => {
                 >
                     Give Review
                 </Typography>
-                <TextField
-                    label="Full Name"
+                {user.displayName && <TextField
                     size="small"
                     sx={{ mb: 2, mr: 2 }}
                     type="text"
                     defaultValue={user.displayName}
                     {...register("name", { required: true })}
-                />
+                />}
                 <TextField
                     label="Write Review"
                     size="small"

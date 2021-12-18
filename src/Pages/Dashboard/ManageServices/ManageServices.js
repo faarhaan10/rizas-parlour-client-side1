@@ -9,15 +9,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { IconButton, Typography } from '@mui/material';
+import useFirebase from '../../../hooks/useFirebase';
+
+
+
+
+
 
 const ManageServices = () => {
-    const [products, setProducts] = React.useState([]);
+    const [services, setServices] = React.useState([]);
+    const { databaseUrl } = useFirebase();
 
-    // load all products 
+    // load all services 
     React.useEffect(() => {
-        axios.get('https://savon-server-sider-api.herokuapp.com/soaps')
+        axios.get(`${databaseUrl}/services`)
             .then(res => {
-                setProducts(res.data);
+                setServices(res.data);
             })
     }, []);
 
@@ -27,12 +34,12 @@ const ManageServices = () => {
         const proceed = window.confirm('Are you sure to delete this product?');
         if (proceed) {
 
-            axios.delete(`https://savon-server-sider-api.herokuapp.com/soaps/${id}`)
+            axios.delete(`${databaseUrl}/services/${id}`)
                 .then(res => {
                     if (res.data.acknowledged) {
                         alert('Product deleted Succesfully');
-                        const restProducts = products.filter(product => product._id !== id);
-                        setProducts(restProducts);
+                        const restProducts = services.filter(product => product._id !== id);
+                        setServices(restProducts);
                     }
                 });
         }
@@ -56,9 +63,6 @@ const ManageServices = () => {
                                 Price
                             </TableCell>
                             <TableCell>
-                                Flavour
-                            </TableCell>
-                            <TableCell>
                                 Rating
                             </TableCell>
                             <TableCell>
@@ -71,33 +75,30 @@ const ManageServices = () => {
                     </TableHead>
                     <TableBody>
                         {
-                            products.map(product => <TableRow
+                            services.map(service => <TableRow
                                 hover
                                 role="checkbox"
                                 tabIndex={-1}
-                                key={product._id}
+                                key={service._id}
                             >
                                 <TableCell >
-                                    {products.indexOf(product) + 1}
+                                    {services.indexOf(service) + 1}
                                 </TableCell>
                                 <TableCell >
-                                    {product.title}
+                                    {service.serviceTitle}
                                 </TableCell>
                                 <TableCell >
-                                    ${product.price}
+                                    ${service.price}
                                 </TableCell>
                                 <TableCell >
-                                    {product.flavour}
-                                </TableCell>
-                                <TableCell >
-                                    {product.rating}
+                                    {service.rating}
                                 </TableCell>
                                 <TableCell >
                                     In Stock
                                 </TableCell>
                                 <TableCell >
-                                    <IconButton onClick={() => handleDelete(product._id)} aria-label="delete">
-                                        <DeleteIcon />
+                                    <IconButton onClick={() => handleDelete(service._id)} aria-label="delete">
+                                        <DeleteIcon color='warning' />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
@@ -107,7 +108,7 @@ const ManageServices = () => {
                 </Table>
             </TableContainer>
 
-            {!products.length && <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
+            {!services.length && <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
                 No orders
             </Typography>
             }

@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useForm } from "react-hook-form";
-
+import axios from 'axios';
+import useFirebase from '../../../hooks/useFirebase';
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -28,28 +29,15 @@ const CssTextField = styled(TextField)({
 });
 
 const AddService = () => {
+    const { databaseUrl } = useFirebase();
     const { register, handleSubmit, reset } = useForm();
+
     const onSubmit = data => {
-
-        const { img, ...rest } = data;
-
-        const formData = new FormData();
-        formData.append('image', img[0]);
-        formData.append('title', rest.title);
-        formData.append('vendor', rest.vendor);
-        formData.append('price', rest.price);
-        formData.append('flavour', rest.flavour);
-        formData.append('description', rest.description);
-
-        fetch('http://localhost:5000/soaps', {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
+        axios.post(`${databaseUrl}/services`, data)
+            .then(res => {
+                if (res.data.acknowledged) {
+                    alert('Service added successfully!');
                     reset();
-                    alert('Succesfully added .');
                 }
             })
     };

@@ -8,6 +8,9 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
 
+    //my database url
+    const databaseUrl = 'http://localhost:5000';
+
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
@@ -77,7 +80,7 @@ const useFirebase = () => {
                 setUser({});
             }
         });
-    }, []);
+    }, [auth]);
 
 
 
@@ -87,7 +90,8 @@ const useFirebase = () => {
         handleGoogleLogin,
         handleCreateUser,
         handleUserLogin,
-        error
+        error,
+        databaseUrl
     }
 };
 
