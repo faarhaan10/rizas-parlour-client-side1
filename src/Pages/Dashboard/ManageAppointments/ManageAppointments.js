@@ -9,33 +9,53 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { IconButton, Typography } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import useAuth from '../../../hooks/useAuth';
 
 const ManageAppointments = () => {
-    const [products, setProducts] = React.useState([]);
+    const [orders, setOrders] = React.useState([]);
+    const { databaseUrl } = useAuth();
 
-    // load all products 
+
+    // load all orders 
     React.useEffect(() => {
-        axios.get('https://savon-server-sider-api.herokuapp.com/soaps')
+        axios.get(`${databaseUrl}/appointments`)
             .then(res => {
-                setProducts(res.data);
+                setOrders(res.data);
             })
     }, []);
 
 
-    // Product delete handler
+    // order delete handler
     const handleDelete = id => {
-        const proceed = window.confirm('Are you sure to delete this product?');
+        const proceed = window.confirm('Are you sure to cancel this appoionment?');
         if (proceed) {
-
-            axios.delete(`https://savon-server-sider-api.herokuapp.com/soaps/${id}`)
+            axios.delete(`${databaseUrl}/appointments/${id}`)
                 .then(res => {
                     if (res.data.acknowledged) {
-                        alert('Product deleted Succesfully');
-                        const restProducts = products.filter(product => product._id !== id);
-                        setProducts(restProducts);
+                        alert('Appointment Cancelled Succesfully');
+                        const restOrders = orders.filter(order => order._id !== id);
+                        setOrders(restOrders);
                     }
                 });
         }
+    };
+
+    const handleAccept = (id, status) => {
+        if (status !== 'accepted') {
+            const newStatus = { status: 'accepted' };
+            axios.put(`${databaseUrl}/appointments/${id}`, newStatus)
+                .then(res => {
+                    if (res.data.acknowledged) {
+                        alert('Appointment accepted Succesfully');
+                    }
+
+                })
+        }
+        else {
+            alert('Already accepted')
+        }
+
     };
 
 
@@ -50,54 +70,57 @@ const ManageAppointments = () => {
                                 No.
                             </TableCell>
                             <TableCell>
-                                Title
+                                Customer
                             </TableCell>
                             <TableCell>
-                                Price
+                                Mobile
                             </TableCell>
                             <TableCell>
-                                Flavour
+                                Service
                             </TableCell>
                             <TableCell>
-                                Rating
+                                Time
                             </TableCell>
                             <TableCell>
-                                Stock
+                                Status
                             </TableCell>
                             <TableCell>
-                                Delete
+                                Update/Delete
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {
-                            products.map(product => <TableRow
+                            orders.map(order => <TableRow
                                 hover
                                 role="checkbox"
                                 tabIndex={-1}
-                                key={product._id}
+                                key={order._id}
                             >
                                 <TableCell >
-                                    {products.indexOf(product) + 1}
+                                    {orders.indexOf(order) + 1}
                                 </TableCell>
                                 <TableCell >
-                                    {product.title}
+                                    {order.userName}
                                 </TableCell>
                                 <TableCell >
-                                    ${product.price}
+                                    {order.phn}
                                 </TableCell>
                                 <TableCell >
-                                    {product.flavour}
+                                    {order.service}
                                 </TableCell>
                                 <TableCell >
-                                    {product.rating}
+                                    {order.date}
                                 </TableCell>
                                 <TableCell >
-                                    In Stock
+                                    {order.status}
                                 </TableCell>
                                 <TableCell >
-                                    <IconButton onClick={() => handleDelete(product._id)} aria-label="delete">
-                                        <DeleteIcon />
+                                    <IconButton onClick={() => handleAccept(order._id, order.status)} aria-label="delete">
+                                        <CheckIcon color='warning' />
+                                    </IconButton>
+                                    <IconButton onClick={() => handleDelete(order._id)} aria-label="delete">
+                                        <DeleteIcon color='warning' />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
@@ -107,7 +130,7 @@ const ManageAppointments = () => {
                 </Table>
             </TableContainer>
 
-            {!products.length && <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
+            {!orders.length && <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
                 No orders
             </Typography>
             }

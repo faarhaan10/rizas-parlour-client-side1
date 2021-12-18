@@ -1,10 +1,15 @@
 import React from 'react';
-import { Typography, Box, Grid, Button, Rating } from '@mui/material';
+import { Typography, Box, Grid, Button, Rating, Link } from '@mui/material';
 import './Service.css';
+import { useNavigate } from 'react-router-dom';
 
 const Service = ({ service }) => {
-    const { serviceTitle, rating, image, description } = service;
+    const { _id, serviceTitle, rating, image, description } = service;
+    const navigate = useNavigate();
 
+    const handleLink = id => {
+        navigate(`/service/${id}`)
+    };
 
     return (
         <Grid item xs={4} sm={4} md={3}>
@@ -21,7 +26,7 @@ const Service = ({ service }) => {
                 >
                     {description.slice(0, 80)}...
                 </Typography>
-                <Button
+                <Button onClick={() => handleLink(_id)}
                     variant="contained" color="warning"
                 >
                     Enquire Now

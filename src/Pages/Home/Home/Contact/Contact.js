@@ -8,6 +8,7 @@ const Contact = () => {
     const onSubmit = data => {
         console.log(data);
     };
+
     return (
         <Container id='contact' sx={{ mt: 5, pt: 8 }}>
             <Box sx={{ textAlign: 'center' }}>

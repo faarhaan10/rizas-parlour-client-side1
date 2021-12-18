@@ -91,12 +91,6 @@ const Navigation = () => {
                             </MenuItem>
                             <MenuItem
                                 onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">
-                                    Book Appoinment
-                                </Typography>
-                            </MenuItem>
-                            <MenuItem
-                                onClick={handleCloseNavMenu}>
                                 <HashLink to='/home#services'>
                                     <Typography textAlign="center">
                                         Services
@@ -150,17 +144,6 @@ const Navigation = () => {
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 Home
-                            </Button>
-                        </Link>
-                        <Link
-                            to='/book'
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Button
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                book appointment
                             </Button>
                         </Link>
 

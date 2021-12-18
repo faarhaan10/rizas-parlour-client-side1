@@ -9,19 +9,24 @@ import Login from "./Pages/Login/Login/Login";
 import Registration from "./Pages/Login/Registration/Registration";
 import NotFound from "./Pages/NotFound/NotFound";
 import Dashboard from "./Pages/Dashboard/Dashboard/Dashboard";
+import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
+import AuthProvider from "./context/AuthProvider/AuthProvider";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" exact element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element={<Registration />} />
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
 
-        <Route path="dashboard/*" element={<Dashboard />} />
+          <Route path="/service/:teamId" element={<PlaceOrder />} />
 
-        {/* <Route path="/" element={<App />}>
+          <Route path="dashboard/*" element={<Dashboard />} />
+
+          {/* <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="teams" element={<Teams />}>
             <Route path=":teamId" element={<Team />} />
@@ -30,10 +35,11 @@ function App() {
           </Route>
         </Route> */}
 
-        <Route path="*" exact element={<NotFound />} />
-      </Routes>
+          <Route path="*" exact element={<NotFound />} />
+        </Routes>
 
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

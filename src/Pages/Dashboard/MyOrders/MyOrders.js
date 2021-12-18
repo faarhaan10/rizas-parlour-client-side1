@@ -9,26 +9,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import axios from 'axios';
 import { IconButton, Typography } from '@mui/material';
-import useFirebase from '../../../hooks/useFirebase';
+import useAuth from '../../../hooks/useAuth';
 
 const MyOrders = () => {
     const [orders, setOrders] = React.useState([]);
-    const { user } = useFirebase();
+    const { user, databaseUrl } = useAuth();
 
     // load logged in users data 
     React.useEffect(() => {
-        axios.get(`https://savon-server-sider-api.herokuapp.com/customers/?email=${user.email}`)
+        axios.get(`${databaseUrl}/appointments/?email=${user.email}`)
             .then(res => setOrders(res.data))
     }, [user.email]);
 
-    // cancel order handler
+
+    // cancel appointment handler
     const handleDelete = id => {
-        const proceed = window.confirm('Are you sure to cancel this order?');
+        const proceed = window.confirm('Are you sure to cancel this appoionment?');
         if (proceed) {
-            axios.delete(`https://savon-server-sider-api.herokuapp.com/customers/${id}`)
+            axios.delete(`${databaseUrl}/appointments/${id}`)
                 .then(res => {
                     if (res.data.acknowledged) {
-                        alert('Order Cancelled Succesfully');
+                        alert('Appointment Cancelled Succesfully');
                         const restOrders = orders.filter(order => order._id !== id);
                         setOrders(restOrders);
                     }
@@ -49,7 +50,7 @@ const MyOrders = () => {
                                 Service Name
                             </TableCell>
                             <TableCell>
-                                Appointment Date
+                                Service Time
                             </TableCell>
                             <TableCell>
                                 Status
@@ -71,7 +72,7 @@ const MyOrders = () => {
                                     {orders.indexOf(order) + 1}
                                 </TableCell>
                                 <TableCell >
-                                    {order.soapTitle}
+                                    {order.service}
                                 </TableCell>
                                 <TableCell >
                                     {order.date}
@@ -81,7 +82,7 @@ const MyOrders = () => {
                                 </TableCell>
                                 <TableCell >
                                     <IconButton onClick={() => handleDelete(order._id)} aria-label="delete">
-                                        <DeleteIcon />
+                                        <DeleteIcon color='warning' />
                                     </IconButton>
                                 </TableCell>
                             </TableRow>
