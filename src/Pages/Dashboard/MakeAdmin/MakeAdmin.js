@@ -4,12 +4,14 @@ import { Box } from '@mui/system';
 import SaveIcon from '@mui/icons-material/Save';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import useAuth from '../../../hooks/useAuth';
 
 const MakeAdmin = () => {
     const { register, handleSubmit, reset } = useForm();
+    const { databaseUrl } = useAuth();
 
     const onSubmit = data => {
-        axios.put('https://savon-server-sider-api.herokuapp.com/users/admin', data)
+        axios.put(`${databaseUrl}/users/admin`, data)
             .then(res => {
                 if (res.data.acknowledged) {
                     alert('Admin added Succesfully');
